@@ -32,3 +32,22 @@
     border: 3px solid rgb(203, 47, 242);
     width : 60%;
 }
+
+.new-expense-button
+{
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+
+.new-expense-button button{
+    width :10rem;
+    height : 3rem;
+    background-color: rgb(203, 47, 242);
+    border: none;
+    border-radius: 0.6rem;
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+
+}
