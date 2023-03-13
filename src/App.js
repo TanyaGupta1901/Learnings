@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 import Expenses from './components/Expense/Expenses';
 import NewExpenseForm from './components/NewExpense/NewExpenseForm';
@@ -24,10 +25,15 @@ function App() {
       date: new Date(2021, 5, 12),
     },
   ];
+
+  const [expenseList, setExpenseList] = useState(expenses);
+  const addExpensehandler = (newExpense) => {
+    console.log(newExpense)
+  }
   return (
     <div>
         <h1 style={{color:"white",textAlign:"center"}}>Expense tracker</h1>
-        <NewExpenseForm></NewExpenseForm>
+        <NewExpenseForm addExpensehandler ={addExpensehandler}></NewExpenseForm>
         <Expenses items={expenses}></Expenses>
     </div>
   );
