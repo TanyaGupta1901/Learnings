@@ -1,8 +1,11 @@
 import React from 'react'
-
-function Card() {
+import "./Card.css"
+function Card(props) {
+  const classes = "card " + props.className;
   return (
-    <div>Card</div>
+    <div className={classes}>
+      {props.children}
+    </div>
   )
 }
 
