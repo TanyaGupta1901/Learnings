@@ -1,0 +1,34 @@
+.expense-form
+{
+    padding: 1rem;
+    border-radius: 0.8rem;
+    background-color: white;
+    color : black;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+.expense-form label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+.expense-form input
+{
+    padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+    max-width: 100%;
+    width: 20rem;
+}
+
+.new-expense
+{
+    background-color: rgba(0, 0, 100, 0.5);
+    padding : 2rem;
+    border: 3px solid rgb(203, 47, 242);
+    width : 60%;
+}

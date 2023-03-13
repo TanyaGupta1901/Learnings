@@ -1,5 +1,6 @@
 import './App.css';
 import Expenses from './components/Expense/Expenses';
+import NewExpenseForm from './components/NewExpense/NewExpenseForm';
 function App() {
 
   const expenses = [
@@ -25,7 +26,8 @@ function App() {
   ];
   return (
     <div>
-        <h1>Expense tracker</h1>
+        <h1 style={{color:"white",textAlign:"center"}}>Expense tracker</h1>
+        <NewExpenseForm></NewExpenseForm>
         <Expenses items={expenses}></Expenses>
     </div>
   );
