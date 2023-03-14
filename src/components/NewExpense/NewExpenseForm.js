@@ -5,7 +5,7 @@ import "./NewExpense.css";
 function NewExpenseForm(props) {
 
   const [title, setTitle] = useState('');
-  const [price, setPrice] = useState('');
+  const [amount, setAmount] = useState('');
   const [date, setDate] = useState('');
 
   const inputHandler = (event) =>{
@@ -13,8 +13,8 @@ function NewExpenseForm(props) {
     if(property === 'title')
     {
       setTitle(event.target.value);
-    } else if ( property === 'price') {
-      setPrice(event.target.value);
+    } else if ( property === 'amount') {
+      setAmount(event.target.value);
     } else if ( property === 'date')
     {
       setDate(event.target.value);
@@ -23,10 +23,14 @@ function NewExpenseForm(props) {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const dataObject = {title, price, date, id : Math.floor(Math.random() * 10)};
+    const dataObject = { 
+      title, 
+      amount, 
+      date : new Date(date), 
+      id : Math.floor(Math.random() * 10)};
     props.addExpensehandler(dataObject);
     setDate('');
-    setPrice('');
+    setAmount('');
     setTitle('');
   }
   
@@ -49,8 +53,8 @@ function NewExpenseForm(props) {
           <input
             type="number"
             placeholder="please enter item price"
-            name="price"
-            value={price}
+            name="amount"
+            value={amount}
             onChange={inputHandler}
           ></input>
         </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Expenses from './components/Expense/Expenses';
 import NewExpenseForm from './components/NewExpense/NewExpenseForm';
@@ -27,14 +27,21 @@ function App() {
   ];
 
   const [expenseList, setExpenseList] = useState(expenses);
+  
   const addExpensehandler = (newExpense) => {
-    console.log(newExpense)
+   setExpenseList([...expenseList, newExpense])
   }
+
+  useEffect(() => {
+    console.log(expenseList)
+  }, [expenseList])
+  
+
   return (
     <div>
         <h1 style={{color:"white",textAlign:"center"}}>Expense tracker</h1>
         <NewExpenseForm addExpensehandler ={addExpensehandler}></NewExpenseForm>
-        <Expenses items={expenses}></Expenses>
+        <Expenses items={expenseList}></Expenses>
     </div>
   );
 }
