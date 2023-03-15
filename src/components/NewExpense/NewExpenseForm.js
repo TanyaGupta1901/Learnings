@@ -5,12 +5,15 @@ function NewExpenseForm(props) {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
+  const [error, setError] = useState(false);
 
   const inputHandler = (event) => {
     const property = event.target.name;
     if (property === "title") {
+      if (event.target.value.length > 0) setError(false);
       setTitle(event.target.value);
     } else if (property === "amount") {
+      if (event.target.value > 0) setError(false);
       setAmount(event.target.value);
     } else if (property === "date") {
       setDate(event.target.value);
@@ -19,6 +22,16 @@ function NewExpenseForm(props) {
 
   const submitHandler = (event) => {
     event.preventDefault();
+
+    if (title.length === 0) {
+      setError(true);
+      return;
+    }
+
+    if (!amount || amount <= 0) {
+      setError(true);
+      return;
+    }
     const dataObject = {
       title,
       amount,
@@ -32,7 +45,10 @@ function NewExpenseForm(props) {
   };
 
   return (
-    <form className="expense-form" onSubmit={submitHandler}>
+    <form
+      onSubmit={submitHandler}
+      className={error ? "expense-form error" : "expense-form"}
+    >
       <div>
         <label> Title </label>
         <input
@@ -40,7 +56,7 @@ function NewExpenseForm(props) {
           name="title"
           onChange={inputHandler}
           value={title}
-        ></input>
+        />
       </div>
       <div>
         <label>Price</label>
@@ -50,7 +66,7 @@ function NewExpenseForm(props) {
           name="amount"
           value={amount}
           onChange={inputHandler}
-        ></input>
+        />
       </div>
       <div>
         <label>Date</label>
@@ -60,7 +76,7 @@ function NewExpenseForm(props) {
           name="date"
           value={date}
           onChange={inputHandler}
-        ></input>
+        />
       </div>
       <div className="new-expense-button">
         <button

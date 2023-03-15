@@ -45,3 +45,7 @@
   font-size: 1rem;
   font-weight: 500;
 }
+
+.error {
+  border: 5px solid red !important;
+}
