@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Expenses from "./components/Expense/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
+import ErrorModal from "./components/UI/ErrorModal";
 
 function App() {
   const expenses = [
@@ -34,7 +35,18 @@ function App() {
     setExpenseList((prevState) => [newExpense, ...prevState]);
   };
 
+  const deleteExpenseHandler = (id) => {
+    const array = expenseList.filter((item) => {
+      console.log(item.id !== id);
+      return item.id !== id;
+    });
+    setExpenseList(array);
+    console.log(array);
+  };
+
   useEffect(() => {
+    console.log("changed");
+    console.log("expenselist", expenseList);
     localStorage.setItem("items", JSON.stringify(expenseList));
   }, [expenseList]);
 
@@ -42,7 +54,7 @@ function App() {
     <div>
       <h1 style={{ color: "white", textAlign: "center" }}>Expense tracker</h1>
       <NewExpense addExpensehandler={addExpensehandler}></NewExpense>
-      <Expenses items={expenseList}></Expenses>
+      <Expenses items={expenseList} deleteHandler={deleteExpenseHandler} />
     </div>
   );
 }

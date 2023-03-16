@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ErrorModal from "../UI/ErrorModal";
 import "./NewExpense.css";
 
 function NewExpenseForm(props) {
@@ -6,6 +7,7 @@ function NewExpenseForm(props) {
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
   const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const inputHandler = (event) => {
     const property = event.target.name;
@@ -39,59 +41,73 @@ function NewExpenseForm(props) {
       id: Math.floor(Math.random() * 10),
     };
     props.addExpensehandler(dataObject);
+    setSuccess(true);
     setDate("");
     setAmount("");
     setTitle("");
   };
 
+  const onConfirm = () => {
+    setSuccess(false);
+  };
+
   return (
-    <form
-      onSubmit={submitHandler}
-      className={error ? "expense-form error" : "expense-form"}
-    >
-      <div>
-        <label> Title </label>
-        <input
-          placeholder="please enter item name"
-          name="title"
-          onChange={inputHandler}
-          value={title}
+    <>
+      {success && (
+        <ErrorModal
+          title="Success!"
+          content="Expense Added"
+          onConfirm={onConfirm}
         />
-      </div>
-      <div>
-        <label>Price</label>
-        <input
-          type="number"
-          placeholder="please enter item price"
-          name="amount"
-          value={amount}
-          onChange={inputHandler}
-        />
-      </div>
-      <div>
-        <label>Date</label>
-        <input
-          type="date"
-          placeholder="dd-mm-yyyy"
-          name="date"
-          value={date}
-          onChange={inputHandler}
-        />
-      </div>
-      <div className="new-expense-button">
-        <button
-          onClick={() => {
-            console.log("clicked");
-            props.stopEditingHandler();
-          }}
-        >
-          Cancel
-        </button>
-      </div>
-      <div className="new-expense-button">
-        <button type="submit">Add Expense</button>
-      </div>
-    </form>
+      )}
+      <form
+        onSubmit={submitHandler}
+        className={error ? "expense-form error" : "expense-form"}
+      >
+        <div>
+          <label> Title </label>
+          <input
+            placeholder="please enter item name"
+            name="title"
+            onChange={inputHandler}
+            value={title}
+          />
+        </div>
+        <div>
+          <label>Price</label>
+          <input
+            type="number"
+            placeholder="please enter item price"
+            name="amount"
+            value={amount}
+            onChange={inputHandler}
+          />
+        </div>
+        <div>
+          <label>Date</label>
+          <input
+            type="date"
+            placeholder="dd-mm-yyyy"
+            name="date"
+            value={date}
+            onChange={inputHandler}
+          />
+        </div>
+        <div className="new-expense-button">
+          <button
+            onClick={() => {
+              console.log("clicked");
+              props.stopEditingHandler();
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+        <div className="new-expense-button">
+          <button type="submit">Add Expense</button>
+        </div>
+      </form>
+    </>
   );
 }
 
