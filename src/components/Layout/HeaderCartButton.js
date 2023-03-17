@@ -1,7 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import Card from "../UI/Card";
 import "./Header.css";
 
 function HeaderCartButton(props) {
