@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  z-index: 1;
+  background-color: rgb(255, 128, 0);
+  color: white;
+}
+.cart-button {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 1rem;
+  background-color: transparent;
+  color: white;
+}
+
+.banner {
+  background-image: url("../../assets/meals.jpeg");
+  position: absolute;
+  top: -10rem;
+  left: -3rem;
+  width: 110%;
+  height: 70vh;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transform: rotate(-7deg);
+}

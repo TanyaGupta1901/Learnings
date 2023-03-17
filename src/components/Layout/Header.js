@@ -1,12 +1,14 @@
 import React from "react";
 import HeaderCartButton from "./HeaderCartButton";
 import Card from "../UI/Card";
+import "./Header.css";
 
-function Header() {
+function Header(props) {
   return (
-    <Card>
-      <h1>Swiggy</h1>
-      <HeaderCartButton />
+    <Card className="header">
+      <h1>SWIGGY</h1>
+      <HeaderCartButton setShowModal={props.setShowModal} />
+      <div className="banner"></div>
     </Card>
   );
 }

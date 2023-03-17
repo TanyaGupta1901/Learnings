@@ -1,0 +1,60 @@
+.meals-list {
+  background-color: white;
+  padding: 1rem;
+  width: 60%;
+  margin: auto;
+  border-radius: 10px;
+  position: absolute;
+  top: 40%;
+  left: 20%;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  list-style: none;
+}
+.meal {
+  display: flex;
+  justify-content: space-between;
+}
+.meal .price {
+  color: rgb(255, 128, 0);
+  font-weight: 700;
+  margin: 0.8rem 0.5rem;
+}
+
+.meal .description {
+  font-style: italic;
+  color: grey;
+  margin: 0.8rem 0.5rem;
+}
+
+.meal .name {
+  margin: 0.8rem 0.5rem;
+}
+
+.mealItemForm {
+  display: flex;
+  gap: 5px;
+  color: rgb(255, 128, 0);
+  border: 1px solid rgb(255, 128, 0);
+  align-items: center;
+  border-radius: 8px;
+}
+
+.mealItemForm span {
+  padding: 0 0.5rem;
+}
+
+.mealItemForm button {
+  background-color: transparent;
+  color: rgb(255, 128, 0);
+  border: none;
+  padding: 0.5rem;
+  box-shadow: inset 0 -3px 3px rgb(0 0 0 / 0.2);
+}
+
+.mealItemForm button:nth-child(1) {
+  border-right: 1px solid rgb(255, 128, 0);
+}
+
+.mealItemForm button:nth-child(3) {
+  border-left: 1px solid rgb(255, 128, 0);
+}

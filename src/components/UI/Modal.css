@@ -1,0 +1,43 @@
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1000vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.overlay {
+  position: absolute;
+  top: 40%;
+  left: 35%;
+  width: 30rem;
+  height: auto;
+  padding: 1rem;
+  background-color: aliceblue;
+  z-index: 20;
+}
+
+.overlay-buttons {
+  display: flex;
+  justify-content: end;
+  gap: 5px;
+}
+
+.overlay-buttons button {
+  border: 1px solid rgb(255, 128, 0);
+  background-color: transparent;
+  color: rgb(255, 128, 0);
+  padding: 1rem;
+  width: 10rem;
+  height: 4rem;
+  font-size: 1rem;
+  border-radius: 12px;
+}
+
+.overlay-buttons button:hover {
+  background-color: rgb(255, 128, 0);
+  color: white;
+  transition: ease-in 0.3s;
+}
