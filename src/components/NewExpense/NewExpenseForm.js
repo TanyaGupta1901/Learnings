@@ -12,10 +12,8 @@ function NewExpenseForm(props) {
   const inputHandler = (event) => {
     const property = event.target.name;
     if (property === "title") {
-      if (event.target.value.length > 0) setError(false);
       setTitle(event.target.value);
     } else if (property === "amount") {
-      if (event.target.value > 0) setError(false);
       setAmount(event.target.value);
     } else if (property === "date") {
       setDate(event.target.value);
@@ -24,16 +22,6 @@ function NewExpenseForm(props) {
 
   const submitHandler = (event) => {
     event.preventDefault();
-
-    if (title.length === 0) {
-      setError(true);
-      return;
-    }
-
-    if (!amount || amount <= 0) {
-      setError(true);
-      return;
-    }
     const dataObject = {
       title,
       amount,
