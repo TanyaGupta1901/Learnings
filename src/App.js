@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Expenses from "./components/Expense/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
-import ErrorModal from "./components/UI/ErrorModal";
 
 function App() {
   const expenses = [
@@ -45,8 +44,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log("changed");
-    console.log("expenselist", expenseList);
     localStorage.setItem("items", JSON.stringify(expenseList));
   }, [expenseList]);
 

@@ -1,24 +1,39 @@
 import React, { useState } from "react";
 import ErrorModal from "../UI/ErrorModal";
 import "./NewExpense.css";
+import useInput from "../../hooks/useInput";
 
 function NewExpenseForm(props) {
-  const [title, setTitle] = useState("");
-  const [amount, setAmount] = useState("");
-  const [date, setDate] = useState("");
-  const [error, setError] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const {
+    value: title,
+    valueChangeHandler: valueChangeHandlerTitle,
+    blurChangeHandler: blurChangeHandlerTitle,
+    hasError: hasErrorTitle,
+    isValid: isValidTitle,
+    resetValue: resetTitle,
+  } = useInput((value) => value !== "", "");
+
+  const {
+    value: amount,
+    valueChangeHandler: valueChangeHandlerAmount,
+    blurChangeHandler: blurChangeHandlerAmount,
+    hasError: hasErrorAmount,
+    isValid: isValidAmount,
+    resetValue: resetAmount,
+  } = useInput((value) => value > 0);
+
+  const {
+    value: date,
+    valueChangeHandler: valueChangeHandlerDate,
+    blurChangeHandler: blurChangeHandlerDate,
+    hasError: hasErrorDate,
+    isValid: isValidDate,
+    resetValue: resetDate,
+  } = useInput((value) => value <= Date.now());
   const [success, setSuccess] = useState(false);
 
-  const inputHandler = (event) => {
-    const property = event.target.name;
-    if (property === "title") {
-      setTitle(event.target.value);
-    } else if (property === "amount") {
-      setAmount(event.target.value);
-    } else if (property === "date") {
-      setDate(event.target.value);
-    }
-  };
+  if (isValidTitle && isValidDate && isValidAmount) setIsFormValid(true);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -30,9 +45,9 @@ function NewExpenseForm(props) {
     };
     props.addExpensehandler(dataObject);
     setSuccess(true);
-    setDate("");
-    setAmount("");
-    setTitle("");
+    resetTitle();
+    resetAmount();
+    resetDate();
   };
 
   const onConfirm = () => {
@@ -48,37 +63,48 @@ function NewExpenseForm(props) {
           onConfirm={onConfirm}
         />
       )}
-      <form
-        onSubmit={submitHandler}
-        className={error ? "expense-form error" : "expense-form"}
-      >
+      <form onSubmit={submitHandler} className="expense-form">
         <div>
-          <label> Title </label>
+          <label>{`Title ${
+            hasErrorTitle ? ": Should not be left empty" : ""
+          }`}</label>
           <input
             placeholder="please enter item name"
             name="title"
-            onChange={inputHandler}
+            onChange={valueChangeHandlerTitle}
+            onBlur={blurChangeHandlerTitle}
             value={title}
+            className={hasErrorTitle ? "error" : "null"}
           />
         </div>
         <div>
-          <label>Price</label>
+          <label>{`Amount ${
+            hasErrorAmount ? ": Should be greter 0" : ""
+          }`}</label>
           <input
             type="number"
             placeholder="please enter item price"
             name="amount"
+            onChange={valueChangeHandlerAmount}
+            onBlur={blurChangeHandlerAmount}
             value={amount}
-            onChange={inputHandler}
+            className={hasErrorAmount ? "error" : "null"}
+            min={0}
           />
         </div>
         <div>
-          <label>Date</label>
+          <label>{`Date ${
+            hasErrorDate ? ": Should not be in past" : ""
+          }`}</label>
           <input
             type="date"
             placeholder="dd-mm-yyyy"
             name="date"
+            onChange={valueChangeHandlerDate}
+            onBlur={blurChangeHandlerDate}
+            className={hasErrorDate ? "error" : "null"}
+            max={Date.now()}
             value={date}
-            onChange={inputHandler}
           />
         </div>
         <div className="new-expense-button">
@@ -92,7 +118,13 @@ function NewExpenseForm(props) {
           </button>
         </div>
         <div className="new-expense-button">
-          <button type="submit">Add Expense</button>
+          <button
+            type="submit"
+            disabled={isFormValid}
+            style={{ opacity: isFormValid ? 1 : 0.5 }}
+          >
+            Add Expense
+          </button>
         </div>
       </form>
     </>
