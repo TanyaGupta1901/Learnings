@@ -21,7 +21,10 @@ function NewExpenseForm(props) {
     hasError: hasErrorAmount,
     isValid: isValidAmount,
     resetValue: resetAmount,
-  } = useInput((value) => value > 0);
+  } = useInput((value) => {
+    console.log(parseInt(value) > 0);
+    return parseInt(value) > 0;
+  }, 0);
 
   const {
     value: date,
@@ -30,13 +33,19 @@ function NewExpenseForm(props) {
     hasError: hasErrorDate,
     isValid: isValidDate,
     resetValue: resetDate,
-  } = useInput((value) => value <= Date.now());
+  } = useInput((value) => {
+    const today = new Date();
+    const input = new Date(value);
+    return today.getTime() >= input.getTime();
+  }, Date.now());
   const [success, setSuccess] = useState(false);
 
   if (isValidTitle && isValidDate && isValidAmount) setIsFormValid(true);
 
   const submitHandler = (event) => {
     event.preventDefault();
+
+    if (!isFormValid) return;
     const dataObject = {
       title,
       amount,
@@ -78,23 +87,8 @@ function NewExpenseForm(props) {
           />
         </div>
         <div>
-          <label>{`Amount ${
-            hasErrorAmount ? ": Should be greter 0" : ""
-          }`}</label>
-          <input
-            type="number"
-            placeholder="please enter item price"
-            name="amount"
-            onChange={valueChangeHandlerAmount}
-            onBlur={blurChangeHandlerAmount}
-            value={amount}
-            className={hasErrorAmount ? "error" : "null"}
-            min={0}
-          />
-        </div>
-        <div>
           <label>{`Date ${
-            hasErrorDate ? ": Should not be in past" : ""
+            hasErrorDate ? ": Should not be in future" : ""
           }`}</label>
           <input
             type="date"
@@ -105,6 +99,22 @@ function NewExpenseForm(props) {
             className={hasErrorDate ? "error" : "null"}
             max={Date.now()}
             value={date}
+          />
+        </div>
+        <div>
+          <label>{`Amount ${
+            hasErrorAmount ? ": Should be greater 0" : ""
+          }`}</label>
+          <input
+            type="number"
+            placeholder="please enter item price"
+            name="amount"
+            onChange={valueChangeHandlerAmount}
+            onBlur={blurChangeHandlerAmount}
+            value={amount}
+            className={hasErrorAmount ? "error" : "null"}
+            min={0}
+            max={10}
           />
         </div>
         <div className="new-expense-button">
