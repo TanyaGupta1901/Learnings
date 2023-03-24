@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import ErrorModal from "../UI/ErrorModal";
 import "./NewExpense.css";
 import useInput from "../../hooks/useInput";
 
 function NewExpenseForm(props) {
   const [isFormValid, setIsFormValid] = useState(false);
+  const TitleValidator = useCallback((title) => title !== "", []);
+  const amountValidator = useCallback((amount) => {
+    console.log(parseInt(amount) > 0);
+    return parseInt(amount) > 0;
+  }, []);
+
   const {
     value: title,
     valueChangeHandler: valueChangeHandlerTitle,
@@ -12,7 +18,7 @@ function NewExpenseForm(props) {
     hasError: hasErrorTitle,
     isValid: isValidTitle,
     resetValue: resetTitle,
-  } = useInput((value) => value !== "", "");
+  } = useInput(TitleValidator, "");
 
   const {
     value: amount,
@@ -21,11 +27,8 @@ function NewExpenseForm(props) {
     hasError: hasErrorAmount,
     isValid: isValidAmount,
     resetValue: resetAmount,
-  } = useInput((value) => {
-    console.log(parseInt(value) > 0);
-    return parseInt(value) > 0;
-  }, 0);
-
+  } = useInput(amountValidator, 0);
+  console.log(title, amount);
   const {
     value: date,
     valueChangeHandler: valueChangeHandlerDate,
@@ -39,7 +42,6 @@ function NewExpenseForm(props) {
     return today.getTime() >= input.getTime();
   }, Date.now());
   const [success, setSuccess] = useState(false);
-
   if (isValidTitle && isValidDate && isValidAmount) setIsFormValid(true);
 
   const submitHandler = (event) => {
@@ -78,6 +80,7 @@ function NewExpenseForm(props) {
             hasErrorTitle ? ": Should not be left empty" : ""
           }`}</label>
           <input
+            id="title"
             placeholder="please enter item name"
             name="title"
             onChange={valueChangeHandlerTitle}
@@ -91,6 +94,7 @@ function NewExpenseForm(props) {
             hasErrorDate ? ": Should not be in future" : ""
           }`}</label>
           <input
+            id="date"
             type="date"
             placeholder="dd-mm-yyyy"
             name="date"
@@ -106,6 +110,7 @@ function NewExpenseForm(props) {
             hasErrorAmount ? ": Should be greater 0" : ""
           }`}</label>
           <input
+            id="amount"
             type="number"
             placeholder="please enter item price"
             name="amount"
